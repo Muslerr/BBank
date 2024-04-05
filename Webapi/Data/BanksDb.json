@@ -1,0 +1,27 @@
+
+    [
+      {
+        "BankCode": "101",
+        "Name":"Poalim",
+        "Description":"Isreal's number 1 bank"
+      },
+      {
+        "BankCode": "202",
+        "Name":"Leomi",
+        "Description":"Isreal's number 1 bank in customer service"
+      },
+      {
+        "BankCode": "303",
+        "Name":"Discont",
+        "Description":"Isreal's number 1 bank in Morgtgages"
+      },
+      {
+        "BankCode": "404",
+        "Name":"Mizrahi",
+        "Description":"Isreal's number 1 bank in Savings"
+      }
+    ]   
+  
+
+
+  
