@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Webapi.Entities;
+using Webapi.Interfaces;
 
 namespace Webapi.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private ICollection<AppUser> _users;
-        private readonly string _dataFilePath = "Data/CreditCardsDb.json";
+        private readonly string _dataFilePath = "Data/UsersDb.json";
 
         public UserRepository()
         {
@@ -19,11 +20,13 @@ namespace Webapi.Repositories
 
         public async Task<AppUser?> GetUserByUsernameAsync(string username)
         {
+            if (_users == null)
+            {
+                _users = await LoadUsersFromFileAsync();
+            }
             try
             {
-                var jsonData = await File.ReadAllTextAsync(_dataFilePath);
-                var users = JsonSerializer.Deserialize<List<AppUser>>(jsonData);
-                return users?.FirstOrDefault(u => u.UserName == username);
+                return _users?.FirstOrDefault(u => u.UserName == username);
             }
             catch (Exception ex)
             {
@@ -35,25 +38,25 @@ namespace Webapi.Repositories
 
         public async Task SaveUserAsync(AppUser user)
         {
+            if (_users == null)
+            {
+                _users = await LoadUsersFromFileAsync();
+            }
             try
             {
-                var users = await LoadUsersFromFileAsync();
-                users.Add(user);
-                var json = JsonSerializer.Serialize(users);
-                await File.WriteAllTextAsync(_dataFilePath, json);
+                if (_users.FirstOrDefault(u => u.UserName == user.UserName) == null)
+                {
+                    _users.Add(user);
+                    var json = JsonSerializer.Serialize(_users);
+                    await File.WriteAllTextAsync(_dataFilePath, json);
+                }
+                else 
+                   throw new Exception("username already exists");
             }
             catch (Exception ex)
             {
-               
                 Console.WriteLine($"Error saving user data: {ex.Message}");
             }
-        }
-
-       
-
-        Task<AppUser?> IUserRepository.GetUserByUsernameAsync(string username)
-        {
-            throw new NotImplementedException();
         }
 
         private async Task<List<AppUser>> LoadUsersFromFileAsync()
@@ -80,6 +83,8 @@ namespace Webapi.Repositories
                 throw new Exception($"Error loading users data from {_dataFilePath}: {ex.Message}");
             }
         }
+    
+        
     }
 
 }

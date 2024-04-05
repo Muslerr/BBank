@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Webapi.Dtos;
 using Webapi.Entities;
 
-namespace Webapi.Repositories
+namespace Webapi.Interfaces
 {
     public interface ICreditCardRepository
     {

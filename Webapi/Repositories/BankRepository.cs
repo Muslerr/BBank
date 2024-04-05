@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Caching.Memory;
 using Webapi.Entities;
+using Webapi.Interfaces;
 
 namespace Webapi.Repositories
 {
@@ -22,14 +24,13 @@ namespace Webapi.Repositories
         public async Task<List<Bank>> GetAllBanksAsync()
         {
             var banks = _cache.Get<List<Bank>>(_cacheKey);
-
             if (banks is null)
             {
                 banks = await LoadBanksFromDataFileAsync();
                 _cache.Set(_cacheKey, banks, new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(TimeSpan.FromHours(1))); // Cache expires 1 hour after last access
             }
-
+            
             return banks;
         }
 

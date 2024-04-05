@@ -6,6 +6,7 @@ using Webapi.Entities;
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
 using Webapi.Dtos;
+using Webapi.Interfaces;
 
 namespace Webapi.Repositories
 {
@@ -30,21 +31,29 @@ namespace Webapi.Repositories
 
         public async Task<ICollection<CreditCard>> GetAsync(CreditFilter filter)
         {
-            if (_cards == null)
+            try
             {
-                _cards = await LoadCreditCardsFromDataFileAsync();
+                if (_cards == null)
+                {
+                    _cards = await LoadCreditCardsFromDataFileAsync();
+                }
+                if (!filter.HasFilters()) // Returns all cards if no filters are specified.
+                {
+                    return await GetAllCreditCardsAsync();
+                }
+                else
+                {
+                    return _cards.Where(card =>
+                        (filter.IsBlocked == null || card.IsBlocked == filter.IsBlocked.Value) &&
+                        (string.IsNullOrEmpty(filter.BankCode) || card.BankCode.Equals(filter.BankCode)) &&
+                        (string.IsNullOrEmpty(filter.CardNumber) || card.CardNumber.Contains(filter.CardNumber))
+                    ).ToList();
+                }
             }
-            if (!filter.HasFilters()) // Returns all cards if no filters are specified.
-            {
-                return await GetAllCreditCardsAsync();
-            }
-            else
-            {
-                return _cards.Where(card =>
-                    (filter.IsBlocked == null || card.IsBlocked == filter.IsBlocked.Value) &&
-                    (string.IsNullOrEmpty(filter.BankCode) || card.BankCode.Equals(filter.BankCode)) &&
-                    (string.IsNullOrEmpty(filter.CardNumber) || card.CardNumber.Contains(filter.CardNumber))
-                ).ToList();
+            catch(Exception e) 
+            { 
+                Console.WriteLine(e.Message);
+                throw;
             }
         }
 
@@ -82,11 +91,12 @@ namespace Webapi.Repositories
                 throw new Exception($"Error loading Cards data from {_dataFilePath}: {ex.Message}");
             }
         }
+        
         public async Task SaveToJSONAsync()
         {
             if (_cards == null)
             {
-               return;
+                return;
             }
 
             try

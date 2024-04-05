@@ -51,3 +51,4 @@ C:\Users\musle\BBank\Webapi\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.d
 C:\Users\musle\BBank\Webapi\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\musle\BBank\Webapi\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\musle\BBank\Webapi\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\musle\BBank\Webapi\bin\Debug\net8.0\Data\UsersDb.json

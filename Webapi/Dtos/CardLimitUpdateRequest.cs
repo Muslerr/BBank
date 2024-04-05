@@ -11,21 +11,29 @@ namespace Webapi.Dtos
         public double WantedAmount { get; set; }
         public string RequestOccupation { get; set; }
         public double AverageIncome { get; set; }
-        
-         public CreditCard CanIncreaseCardLimit(CreditCard card)
+
+        public CreditCard CanIncreaseCardLimit(CreditCard card)
         {
-            
-            if (card.IsBlocked || AverageIncome < 12000 || IsIssuedDateMoreThanThreeMonthsAgo(card.IssuedDate))
+            try
+            {
+                if (card.IsBlocked || AverageIncome < 12000 || IsIssuedDateMoreThanThreeMonthsAgo(card.IssuedDate))
+                    return null;
+                if (!OccupationsList.Occupations.TryGetValue(RequestOccupation, out var increasePercentage))
+                {
+                    return null;
+                }
+                if (WantedAmount <= increasePercentage * AverageIncome)
+                {
+                    card.CardLimit = WantedAmount;
+                    return card;
+                }
                 return null;
-            if(!OccupationsList.Occupations.TryGetValue(RequestOccupation, out var increasePercentage)){
-               return null;
             }
-            if(WantedAmount <= increasePercentage*AverageIncome){
-                card.CardLimit=WantedAmount;
-                return card;
+            catch
+            {
+                throw;
             }
-            return null;
-             
+
         }
 
         private bool IsIssuedDateMoreThanThreeMonthsAgo(DateTime issuedDate)
@@ -33,6 +41,6 @@ namespace Webapi.Dtos
             var threeMonthsAgo = DateTime.UtcNow.Subtract(TimeSpan.FromDays(30 * 3)); // Calculate 3 months ago in UTC
             return issuedDate > threeMonthsAgo;
         }
-    
+
     }
 }

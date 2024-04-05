@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Webapi.Entities;
 
-namespace Webapi.Services
+namespace Webapi.Interfaces
 {
     public interface IUserService
     {
-        Task<AppUser?> AuthenticateAsync(string username, string password);
+        Task<string> AuthenticateAsync(string username, string password);
         Task<string> GenerateJwtToken(AppUser user);
+        Task<string> CreateHashedPassword(string password);
     }
 }
