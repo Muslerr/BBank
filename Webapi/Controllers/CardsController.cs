@@ -58,7 +58,7 @@ namespace Webapi.Controllers
         }
 
 
-        [HttpPut("/cards/{id:guid}")]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> IncreaseCreditLimit(Guid id, CardLimitUpdateRequest requestConditions)
         {
             try

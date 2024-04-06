@@ -85,7 +85,7 @@ namespace Webapi.Services
                 numBytesRequested: 32
 
             );
-            return $"{iterations}:{Convert.ToBase64String(salt)}:{Convert.ToBase64String(derivedBytes)}";
+            return  $"{iterations}:{Convert.ToBase64String(salt)}:{Convert.ToBase64String(derivedBytes)}";
         }
 
         public bool VerifyPasswordHash(string password, string hashedPassword)
