@@ -2,8 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
-import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/react";
+
 
 const LoginPage = () => {
   const { login } = useContext(AuthContext);
@@ -39,7 +38,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2 className="text-red-500">Login</h2>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>

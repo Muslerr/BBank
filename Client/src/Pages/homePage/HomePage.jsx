@@ -40,6 +40,9 @@ const HomePage = () => {
   return (
     <div>
       <h2>Home Page</h2>
+      <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
       {isLoading && <Loading />}
       {hasError && (
         <div>
@@ -49,7 +52,7 @@ const HomePage = () => {
       )}
       {!isLoading && !hasError && (
         <>
-          <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
+          <div className="gap-2 grid grid-cols-2 sm:grid-cols-4" >
             {cards.map((item, index) => (
               <Card
                 shadow="sm"
@@ -57,13 +60,12 @@ const HomePage = () => {
                 isPressable
                 onPress={() => console.log("item pressed")}
               >
-                <CardBody className="overflow-visible p-0">
+                <CardBody>
                   <Image
                     shadow="sm"
                     radius="lg"
-                    width="100px"
-                    
-                    className="w-full object-cover h-[140px]"
+                    width="100%"                   
+                    className="w-full object-cover h-[100%]"
                     src={`../../../${item.cardImage}`}
                   />
                 </CardBody>
