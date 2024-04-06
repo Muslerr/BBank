@@ -26,12 +26,15 @@ namespace Webapi.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetCards()
-        {
+        {  
+           
             try
             {
                 var cards = await _creditCardRepository.GetAllCreditCardsAsync();
-                if (cards != null)
-                    return Ok(cards);
+                if (cards != null)                    
+                        return Ok(cards);
+                    
+                    
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving cards.");
             }
             catch
@@ -44,6 +47,7 @@ namespace Webapi.Controllers
 
         public async Task<IActionResult> GetFilteredCards([FromBody] CreditFilter filter)
         {
+            
             try
             {
                 if (!ModelState.IsValid)

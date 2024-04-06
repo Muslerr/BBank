@@ -1,14 +1,16 @@
-import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { AuthContext } from '../../Contexts/AuthContext';
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/react";
 
 const LoginPage = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
   const [error, setError] = useState(null);
 
@@ -20,18 +22,18 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/User/Login', formData);
+      const response = await axios.post("/User/Login", formData);
       const token = response.data.token;
 
       if (token) {
         login(token);
-        navigate('/');
+        navigate("/");
       } else {
-        setError('Invalid credentials');
+        setError("Invalid credentials");
       }
     } catch (error) {
-       console.log(error);
-        setError('An error occurred while authenticating');
+      console.log(error);
+      setError(error.message);
     }
   };
 

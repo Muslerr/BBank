@@ -23,7 +23,7 @@ namespace Webapi.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Authenticate([FromBody] UserDto request)
         {
-            Console.WriteLine("enterd login");
+            
             try
             {
                 if (!ModelState.IsValid)

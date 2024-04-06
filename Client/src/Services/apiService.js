@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const apiClient = axios.create({
   baseURL: 'http://localhost:5275/api', // Replace with your API base URL
 });
@@ -16,7 +17,8 @@ apiClient.interceptors.request.use(
 );
 
 export const getCards = async () => {
-  try {
+    
+    try {
     const response = await apiClient.get('/cards');
     return response.data;
   } catch (error) {
@@ -26,7 +28,8 @@ export const getCards = async () => {
 };
 
 export const getBanks = async () => {
-  try {
+    
+    try {
     const response = await apiClient.get('/banks');
     return response.data;
   } catch (error) {

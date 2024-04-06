@@ -1,15 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { BrowserRouter as Router } from 'react-router-dom';
-import axios from 'axios';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { BrowserRouter as Router } from "react-router-dom";
+import axios from "axios";
+import {NextUIProvider} from '@nextui-org/react'
 
-axios.defaults.baseURL = 'http://localhost:5275';
-ReactDOM.createRoot(document.getElementById('root')).render(
+axios.defaults.baseURL = "http://localhost:5275/api";
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <NextUIProvider>
     <Router>
-    <App />
+      <App />
     </Router>
-  </React.StrictMode>,
-)
+    </NextUIProvider>
+  </React.StrictMode>
+);
