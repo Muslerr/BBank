@@ -28,9 +28,9 @@ namespace Webapi.Repositories
             {
                 banks = await LoadBanksFromDataFileAsync();
                 _cache.Set(_cacheKey, banks, new MemoryCacheEntryOptions()
-                    .SetSlidingExpiration(TimeSpan.FromHours(1))); // Cache expires 1 hour after last access
+                    .SetAbsoluteExpiration(TimeSpan.FromHours(1))); // Cache expires after 1 hour
             }
-            
+
             return banks;
         }
 
@@ -49,12 +49,12 @@ namespace Webapi.Repositories
                     throw new ArgumentException("Data file path not set. Please set the _dataFilePath property before calling this method.");
                 }
 
-                
+
                 // Open the file and read the JSON data
                 using (var fileStream = File.OpenRead(_dataFilePath))
                 using (var streamReader = new StreamReader(fileStream))
-                {                   
-                    var banks =await JsonSerializer.DeserializeAsync<List<Bank>>(fileStream);
+                {
+                    var banks = await JsonSerializer.DeserializeAsync<List<Bank>>(fileStream);
                     return banks;
                 }
             }

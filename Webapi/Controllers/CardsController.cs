@@ -24,39 +24,37 @@ namespace Webapi.Controllers
             _creditCardRepository = creditCardRepository;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCards()
-        {  
-           await Task.Delay(1000);
-            try
-            {
-                var cards = await _creditCardRepository.GetAllCreditCardsAsync();
-                if (cards != null)                    
-                        return Ok(cards);
-                    
-                    
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving cards.");
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving cards.");
-            }
-        }
-
-        [HttpPost]
-
-        public async Task<IActionResult> GetFilteredCards([FromBody] CreditFilter filter)
+         [HttpGet]
+        public async Task<IActionResult> GetCards([FromQuery] bool? isBlocked, [FromQuery] string? bankCode, [FromQuery] string? cardNumber)
         {
-            await Task.Delay(3000);
+            await Task.Delay(1000);
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-                var filteredCards = await _creditCardRepository.GetAsync(filter);
-                return Ok(filteredCards);
+                var filter = new CreditFilter
+                {
+                    IsBlocked = isBlocked,
+                    BankCode = bankCode,
+                    CardNumber = cardNumber
+                };
+
+                IEnumerable<CreditCard> cards;
+
+                if (filter.HasFilters())
+                {
+                    cards = await _creditCardRepository.GetAsync(filter);
+                }
+                else
+                {
+                    cards = await _creditCardRepository.GetAllCreditCardsAsync();
+                }
+
+                if (cards != null)
+                    return Ok(cards);
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving cards.");
             }
             catch
-            { 
+            {
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving cards.");
             }
         }
@@ -65,6 +63,8 @@ namespace Webapi.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> IncreaseCreditLimit(Guid id, CardLimitUpdateRequest requestConditions)
         {
+            Console.WriteLine("Increasing credit limit:");
+            await Task.Delay(2000);
             try
             {
                 if (!ModelState.IsValid)
@@ -80,6 +80,7 @@ namespace Webapi.Controllers
                     return BadRequest("Credit limit increase not approved.");
 
                 await _creditCardRepository.SaveToJSONAsync();
+                Console.WriteLine("worked");
                 return Ok(newCard);
             }
             catch
@@ -87,8 +88,5 @@ namespace Webapi.Controllers
                 return BadRequest("Error occured inside the server");
             }
         }
-
-
-
     }
 }

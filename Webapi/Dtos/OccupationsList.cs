@@ -9,8 +9,9 @@ namespace Webapi.Dtos
     {
         public static readonly Dictionary<string, double> Occupations = new Dictionary<string, double>
     {
+        { "SelfEmployed", 0.3 },
         { "Salaried", 0.5 },
-        { "SelfEmployed", (1/3) },
+       
         //we can add more occupation profile in here and modify the existing ones with ease.
     };
     }

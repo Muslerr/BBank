@@ -1,18 +1,18 @@
 import React from 'react';
-import { Card, CardBody, CardFooter, Image,Skeleton } from '@nextui-org/react';
-
+import { Card, CardBody, CardFooter, Image,Skeleton,Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from '@nextui-org/react';
+import ModalForm from './ModalForm';
 const CardItem = ({ card, bankName }) => {
-  
-  
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    
     return (
-           
-    <Card shadow="sm" key={card.cardNumber}   isPressable onPress={() => console.log('item pressed')}>
-      <CardBody className="overflow-hidden p-0  w-[100%]">
+    <>      
+    <Card shadow="sm" key={card.cardNumber} className="m-0.5"   isPressable onPress={onOpen}>
+      <CardBody className=" p-0  w-[100%]">
         <Image
           shadow="sm"
           radius="lg"
-          width="400px"
-          height="100%" 
+          
+          
           src={`../../../${card.cardImage}`}
         />
       </CardBody>
@@ -21,7 +21,14 @@ const CardItem = ({ card, bankName }) => {
         <p className="text-default-500">bank:{bankName}</p>
       </CardFooter>
     </Card>
-    
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <ModalForm cardId={card.id} onClose={onClose} ></ModalForm>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 

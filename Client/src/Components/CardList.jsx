@@ -3,13 +3,12 @@ import { DataContext } from "../Contexts/DataContext";
 import CardItem from "./CardItem";
 import { Skeleton } from "@nextui-org/react";
 import { getFilteredCards } from "../Services/apiService";
-import { Select, SelectItem } from "@nextui-org/react";
-import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
-import { color } from "framer-motion";
-
+import IsblockedFilter from "./IsblockedFilter";
+import CardNumberFilter from "./CardNumberFilter";
+import BankCodeFilter from "./BankCodeFilter";
 
 const CardList = () => {
-  const { cards, banks, setCards,allCards } = useContext(DataContext);
+  const { cards, banks, setCards, allCards } = useContext(DataContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -22,36 +21,38 @@ const CardList = () => {
   });
 
   const handleCardNumberFilterChange = (cardNumber) => {
-    
     setFilter((prevFilter) => ({
-        ...prevFilter,
-        CardNumber: cardNumber,
-      }));
-    };
-
-  
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    console.log(value);
-    if (name === "IsBlocked") {
-      setFilter((prevFilter) => ({
-        ...prevFilter,
-        IsBlocked: value === "$.0" ? null : value === "$.1" ? true : false,
-      }));
-    } else {
-      setFilter((prevFilter) => ({
-        ...prevFilter,
-        [name]: value,
-      }));
-    }
+      ...prevFilter,
+      CardNumber: cardNumber,
+    }));
+    applyFilter({ ...filter, CardNumber: cardNumber });
   };
 
-  const applyFilter = async () => {
+  const handleIsblockedFilterChange = (e) => {
+    const { value } = e.target;
+    const isBlocked = value === "$.0" ? null : value === "$.1" ? true : false;
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      IsBlocked: isBlocked,
+    }));
+    applyFilter({ ...filter, IsBlocked: isBlocked });
+  };
+
+  const handleBankCodeFilterChange = (e) => {
+    const { value } = e.target;
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      BankCode: value,
+    }));
+    applyFilter({ ...filter, BankCode: value });
+  };
+
+  const applyFilter = async (updatedFilter) => {
     try {
       setError(null);
       setIsLoading(true);
-      console.log(filter);
-      setCards(await getFilteredCards(filter));
+      console.log(updatedFilter);
+      setCards(await getFilteredCards(updatedFilter));
     } catch (error) {
       setError(error.message);
       console.log(error.message);
@@ -69,46 +70,9 @@ const CardList = () => {
   return (
     <div>
       <div>
-        <Select
-          variant="bordered"
-          label="Card availability"
-          placeholder="Show all"
-          className="max-w-xs"
-          name="IsBlocked"
-          onChange={handleFilterChange}
-        >
-          <SelectItem value="all">all cards</SelectItem>
-          <SelectItem value="true">blocked cards</SelectItem>
-          <SelectItem value="false">open cards</SelectItem>
-        </Select>
-        <Autocomplete
-          defaultItems={allCards}
-          label="Card Number"
-          variant="bordered"
-          name="CardNumber"
-          placeholder="Search by card number"
-          className="max-w-xs"
-          onSelectionChange={handleCardNumberFilterChange}
-          onInputChange={handleCardNumberFilterChange}
-          
-        >
-          {(card) => (
-            <AutocompleteItem key={card.cardNumber}>
-              {card.cardNumber}
-            </AutocompleteItem>
-          )}
-        </Autocomplete>
-
-        <label>
-          Bank Code:
-          <input
-            type="text"
-            name="BankCode"
-            value={filter.BankCode}
-            onChange={handleFilterChange}
-          />
-        </label>
-        <button onClick={applyFilter}>Apply Filter</button>
+        <IsblockedFilter onChange={handleIsblockedFilterChange} />        
+        <BankCodeFilter banks={banks} onChange={handleBankCodeFilterChange} />
+        <CardNumberFilter allCards={cards} onChange={handleCardNumberFilterChange} />
       </div>
       <div className="gap-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
         {cards.map((card, index) => (
@@ -122,4 +86,3 @@ const CardList = () => {
 };
 
 export default CardList;
-// className="gap-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"

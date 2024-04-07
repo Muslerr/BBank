@@ -14,19 +14,24 @@ namespace Webapi.Dtos
 
         public CreditCard CanIncreaseCardLimit(CreditCard card)
         {
+           
             try
             {
                 if (card.IsBlocked || AverageIncome < 12000 || IsIssuedDateMoreThanThreeMonthsAgo(card.IssuedDate))
                     return null;
                 if (!OccupationsList.Occupations.TryGetValue(RequestOccupation, out var increasePercentage))
                 {
+                    Console.WriteLine("occupation bad");
                     return null;
                 }
+                Console.WriteLine(increasePercentage);
                 if (WantedAmount <= increasePercentage * AverageIncome)
                 {
+                    Console.WriteLine(increasePercentage);
                     card.CardLimit = WantedAmount;
                     return card;
                 }
+                Console.WriteLine(increasePercentage);
                 return null;
             }
             catch
