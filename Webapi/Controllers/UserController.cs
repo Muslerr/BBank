@@ -23,13 +23,12 @@ namespace Webapi.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Authenticate([FromBody] UserDto request)
         {
-            
+            Console.WriteLine(request.UserName, request.Password);
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                string password = await _userService.CreateHashedPassword("123456");
                 string token = await _userService.AuthenticateAsync(request.UserName, request.Password);
 
                 if (token == null)

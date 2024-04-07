@@ -2,10 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { getCards, getBanks } from "../../Services/apiService";
 import { DataContext } from "../../Contexts/DataContext";
 import Loading from "../../Components/Loading";
-import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
+import {Card, CardBody, CardFooter, Image,Skeleton} from "@nextui-org/react";
+import CardList from "../../Components/CardList";
 
 const HomePage = () => {
-  const { cards, banks, setBanks, setCards } = useContext(DataContext);
+  const { cards, banks, setBanks, setCards,setAllCards } = useContext(DataContext);
   const [isLoadingCards, setIsLoadingCards] = useState(true);
   const [isLoadingBanks, setIsLoadingBanks] = useState(true);
   const [errorCards, setErrorCards] = useState(null);
@@ -15,7 +16,9 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         setErrorCards(null);
-        setCards(await getCards());
+        let fetchedCards =await getCards()
+        setCards(fetchedCards);
+        setAllCards(fetchedCards);
       } catch (error) {
         setErrorCards(error.message);
       } finally {
@@ -34,15 +37,15 @@ const HomePage = () => {
 
     fetchData();
   }, []);
+
+  
+
   const isLoading = isLoadingCards || isLoadingBanks;
   const hasError = errorCards || errorBanks;
- console.log(cards)
+ 
   return (
-    <div>
+    <div className="w-screen h-screen" >
       <h2>Home Page</h2>
-      <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
       {isLoading && <Loading />}
       {hasError && (
         <div>
@@ -52,30 +55,9 @@ const HomePage = () => {
       )}
       {!isLoading && !hasError && (
         <>
-          <div className="gap-2 grid grid-cols-2 sm:grid-cols-4" >
-            {cards.map((item, index) => (
-              <Card
-                shadow="sm"
-                key={index}
-                isPressable
-                onPress={() => console.log("item pressed")}
-              >
-                <CardBody>
-                  <Image
-                    shadow="sm"
-                    radius="lg"
-                    width="100%"                   
-                    className="w-full object-cover h-[100%]"
-                    src={`../../../${item.cardImage}`}
-                  />
-                </CardBody>
-                <CardFooter className="text-small justify-between">
-                  <b>{item.cardNumber}</b>
-                  <p className="text-default-500">bank:{item.bankCode}</p>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+          <h3>Cards</h3>
+          
+          <CardList  />
         </>
       )}
     </div>

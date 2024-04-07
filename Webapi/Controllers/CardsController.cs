@@ -27,7 +27,7 @@ namespace Webapi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCards()
         {  
-           
+           await Task.Delay(1000);
             try
             {
                 var cards = await _creditCardRepository.GetAllCreditCardsAsync();
@@ -47,7 +47,7 @@ namespace Webapi.Controllers
 
         public async Task<IActionResult> GetFilteredCards([FromBody] CreditFilter filter)
         {
-            
+            await Task.Delay(3000);
             try
             {
                 if (!ModelState.IsValid)
