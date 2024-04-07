@@ -11,8 +11,6 @@ const CardItem = ({ card, bankName }) => {
         <Image
           shadow="sm"
           radius="lg"
-          
-          
           src={`../../../${card.cardImage}`}
         />
       </CardBody>

@@ -23,8 +23,7 @@ namespace Webapi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBanksAsync()
         {
-             await Task.Delay(1000);
-             Console.WriteLine("got banks");
+            
             try
             {
                 var banks = await _bankRepository.GetAllBanksAsync();

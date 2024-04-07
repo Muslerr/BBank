@@ -30,12 +30,11 @@ const CardList = () => {
 
   const handleIsblockedFilterChange = (e) => {
     const { value } = e.target;
-    const isBlocked = value === "$.0" ? null : value === "$.1" ? true : false;
     setFilter((prevFilter) => ({
       ...prevFilter,
-      IsBlocked: isBlocked,
+      IsBlocked: value,
     }));
-    applyFilter({ ...filter, IsBlocked: isBlocked });
+    applyFilter({ ...filter, IsBlocked: value });
   };
 
   const handleBankCodeFilterChange = (e) => {

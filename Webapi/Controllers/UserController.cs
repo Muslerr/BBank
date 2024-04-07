@@ -22,23 +22,23 @@ namespace Webapi.Controllers
 
         [HttpPost("Login")]
         public async Task<IActionResult> Authenticate([FromBody] UserDto request)
-        {
-            Console.WriteLine(request.UserName, request.Password);
+        {   
+            
             try
             {
                 if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+                    return BadRequest(new { Message = "Invalid Inputs." });
 
                 string token = await _userService.AuthenticateAsync(request.UserName, request.Password);
 
                 if (token == null)
-                    return Unauthorized();
+                    return Unauthorized("Wrong password or Username");
 
                 return Ok(new { Token = token });
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while logging in.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred in the server while logging in.");
             }
         }
     }

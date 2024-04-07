@@ -13,7 +13,7 @@ export const ThemeSwitcher = ({toggleDarkMode}) => {
       startContent={<SunIcon />}
       endContent={<MoonIcon />}
       onValueChange={toggleDarkMode}
-      className="fixed top-0 right-0 m-3"
+      
     >
     </Switch>
   )

@@ -3,6 +3,8 @@ import { Input, Button } from "@nextui-org/react";
 import { increaseCreditLimit } from "../Services/apiService";
 import { useContext } from "react";
 import { DataContext } from "../Contexts/DataContext";
+import ErrorMessage from "./ErrorMessage";
+import CreditLimitApproved from "./CreditLimitApproved";
 import {
   Select,
   SelectItem,
@@ -28,12 +30,6 @@ const ModalForm = ({ cardId, onClose }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  // const handleBankCodeFilterChange = (e) => {
-  //   const { value } = e.target;
-  //   setFormData((prevForm) => ({
-  //     ...prevFilter,
-  //     BankCode: value,
-  //   }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +38,7 @@ const ModalForm = ({ cardId, onClose }) => {
       setError(null);
       setLoading(true);
       await increaseCreditLimit(cardId, formData);
+      setError(null);
       setIsIncreased(true);
     } catch (error) {
       setError(error);
@@ -100,7 +97,7 @@ const ModalForm = ({ cardId, onClose }) => {
           <Button type="submit" isDisabled={!isFormValid()} color="primary" isLoading={isLoading}>
             Submit
           </Button>
-          <div>{isIncreased ? "workedd" : ""}</div>
+          {error ? <ErrorMessage message={error.response.data} />:isIncreased? <CreditLimitApproved/> : ""}
           
       </ModalBody>
      

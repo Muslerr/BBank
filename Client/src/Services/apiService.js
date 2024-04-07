@@ -48,7 +48,7 @@ export const getBanks = async () => {
 
 export const getFilteredCards = async (filter) => {
   try {
-    console.log("Loading cards");
+    console.log(filter);
     const queryParams = new URLSearchParams(filter);
     const response = await apiClient.get(`/cards?${queryParams.toString()}`);
     return response.data;

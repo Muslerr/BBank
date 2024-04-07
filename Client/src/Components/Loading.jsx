@@ -5,6 +5,6 @@ export default function Loading() {
   
 
   return (
-    <CircularProgress label="Loading..." />
+    <CircularProgress label="Loading..."  size="lg" />
   );
 }
