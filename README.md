@@ -27,7 +27,7 @@ npm run dev
 👤 **Bar musler**
 
 * Github: [@Musler](https://github.com/Musler)
-* LinkedIn: [@Bar Musler](https://linkedin.com/in/Bar Musler)
+* LinkedIn: [@Bar Musler](https://linkedin.com/in/BarMusler)
 
 ## Show your support
 
