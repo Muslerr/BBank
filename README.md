@@ -52,6 +52,7 @@
    ```sh
    cd ../Webapi
    dotnet restore
+   dotnet build
    ```
 
 ## Usage
