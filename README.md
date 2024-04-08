@@ -2,7 +2,7 @@
 <p>
 </p>
 
-> The best way to see , filter and update credit card limit
+> The best way to see , filter and update credit card limit.
 
 ## Install
 
@@ -20,6 +20,7 @@ open another terminal and run :
 cd Client/  
 npm i
 npm run dev
+it will show you a link   Local:   http://localhost:5173/  press on it and ctrl
 ```
 
 ## Author
