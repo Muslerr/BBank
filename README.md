@@ -23,7 +23,7 @@ Here's an updated version of your README.md file that incorporates the additiona
 
 ## Prerequisites
 
-- Node.js (version X.X.X)
+- Node.js latest version
 - .NET 8 SDK
 
 ## Installation
