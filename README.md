@@ -34,7 +34,7 @@ Here's an updated version of your README.md file that incorporates the additiona
    git clone https://github.com/Musler/BBank.git
    ```
 
-2. Navigate to the project directory:
+2. Navigate to the project directory or right click it and select open integrated terminal:
 
    ```sh
    cd BBank
@@ -59,18 +59,18 @@ Here's an updated version of your README.md file that incorporates the additiona
 1. Start the .NET Web API:
 
    ```sh
-   cd Webapi
+   cd Webapi/
    dotnet watch run
    ```
 
 2. In another terminal, start the React client:
 
    ```sh
-   cd Client
+   cd Client/
    npm run dev
    ```
 
-3. Open your browser and visit `http://localhost:5173` to access the application.
+3. Open your browser and visit `http://localhost:5173/` to access the application. Or press ctrl + the link given to you in the terminal
 
 ## API Documentation
 
@@ -90,7 +90,7 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+
 
 ## Author
 
@@ -106,4 +106,3 @@ Give a ⭐️ if this project helped you!
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
 
-Feel free to customize the README further based on your specific project details and requirements. Let me know if you have any more questions!
