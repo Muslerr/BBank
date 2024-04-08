@@ -2,7 +2,7 @@
 
 <h1 align="center">Welcome to BBank 👋</h1>
 
-> A credit card management system built with .NET 8 Web API and React with Vite, Tailwind CSS, and NextUI.
+> A credit card management system built with .NET 8 Web API and React with Vite, Tailwind CSS, and NextUI. If any problems are encountered during the installation please contect me in email :muslerbar@gmail.com .
 
 ## Features
 
