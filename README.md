@@ -16,6 +16,7 @@ npm i
 open terminal and run :cd /webapi 
 dotnet watch run  
 open another terminal and run : cd /Client  
+npm i
 npm run dev
 ```
 
