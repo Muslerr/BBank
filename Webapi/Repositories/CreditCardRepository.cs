@@ -22,9 +22,10 @@ namespace Webapi.Repositories
 
         public async Task<ICollection<CreditCard>> GetAllCreditCardsAsync()
         {
+            
             if (_cards == null)
             {
-                _cards = await LoadCreditCardsFromDataFileAsync();
+                _cards = await LoadCreditCardsFromDataFileAsync(); //if there is an internal error than the server will handle it inside the controller
             }
             return _cards;
         }
@@ -59,6 +60,7 @@ namespace Webapi.Repositories
 
         public async Task<CreditCard> GetCreditCardByIdAsync(Guid id)
         {
+            
             if (_cards == null)
             {
                 _cards = await LoadCreditCardsFromDataFileAsync();

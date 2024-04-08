@@ -24,11 +24,11 @@ namespace Webapi.Controllers
             _creditCardRepository = creditCardRepository;
         }
 
-        [HttpGet]
+       
         [HttpGet]
         public async Task<IActionResult> GetCards([FromQuery] string? isBlocked, [FromQuery] string? bankCode, [FromQuery] string? cardNumber)
         {
-            await Task.Delay(1000);
+            
             try
             {               
 
@@ -64,7 +64,7 @@ namespace Webapi.Controllers
         public async Task<IActionResult> IncreaseCreditLimit(Guid id, CardLimitUpdateRequest requestConditions)
         {
             Console.WriteLine("Increasing credit limit:");
-            await Task.Delay(1000);
+            
             try
             {
                 if (!ModelState.IsValid)

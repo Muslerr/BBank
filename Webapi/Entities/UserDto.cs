@@ -6,7 +6,4 @@ using System.Threading.Tasks;
 namespace Webapi.Entities
 {
     public record UserDto(string UserName,string Password);
-    
-        
-    
 }

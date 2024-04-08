@@ -35,10 +35,10 @@ namespace Webapi.Services
                 }
                 return await GenerateJwtToken(user);
             }
-            catch (Exception e)
+            catch(Exception ex)
             {
-                Console.WriteLine(e.Message);
-                throw;
+                Console.WriteLine("Error Authenticating the user.");
+                throw new Exception($"Error Authenticating the user :{ex.Message}");      
             }
         }
 
@@ -61,14 +61,13 @@ namespace Webapi.Services
                     expires: DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["Jwt:ExpireMinutes"])),
                     signingCredentials: credentials
                 );
-
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
                 return tokenString;
             }
-            catch
+            catch(Exception ex)
             {
                 Console.WriteLine("Error creating the jwt token.");
-                throw;      
+                throw new Exception($"Error creating jwt :{ex.Message}");      
             }
         }
 

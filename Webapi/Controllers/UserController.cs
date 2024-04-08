@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Webapi.Entities;
 using Webapi.Interfaces;
@@ -22,8 +23,8 @@ namespace Webapi.Controllers
 
         [HttpPost("Login")]
         public async Task<IActionResult> Authenticate([FromBody] UserDto request)
-        {   
-            
+        {
+
             try
             {
                 if (!ModelState.IsValid)
@@ -41,5 +42,12 @@ namespace Webapi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred in the server while logging in.");
             }
         }
+        [HttpGet("ValidateToken")]
+        [Authorize]
+        public IActionResult ValidateToken()
+        {
+            return Ok(new { Valid = true });
+        }
+
     }
 }

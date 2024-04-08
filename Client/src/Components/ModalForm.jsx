@@ -3,8 +3,8 @@ import { Input, Button } from "@nextui-org/react";
 import { increaseCreditLimit } from "../Services/apiService";
 import { useContext } from "react";
 import { DataContext } from "../Contexts/DataContext";
-import ErrorMessage from "./ErrorMessage";
-import CreditLimitApproved from "./CreditLimitApproved";
+import ErrorMessage from "./Messages/ErrorMessage";
+import CreditLimitApproved from "./Messages/CreditLimitApproved";
 import {
   Select,
   SelectItem,
@@ -16,7 +16,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 
-const ModalForm = ({ cardId, onClose }) => {
+const ModalForm = ({ card, onClose }) => {
   const { occupations } = useContext(DataContext);
   const [error, setError] = useState();
   const [isLoading, setLoading] = useState();
@@ -33,11 +33,11 @@ const ModalForm = ({ cardId, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    
     try {
       setError(null);
       setLoading(true);
-      await increaseCreditLimit(cardId, formData);
+      await increaseCreditLimit(card.id, formData);
       setError(null);
       setIsIncreased(true);
     } catch (error) {
@@ -57,12 +57,15 @@ const ModalForm = ({ cardId, onClose }) => {
   return (
     <>
       <ModalHeader className="flex flex-col gap-1">
-        Increase Credit Limit Request                                                                 
+        Increase Credit Limit Request
       </ModalHeader>
-      
+      {card.isBlocked && (
+        <ErrorMessage
+          message={"This card is blocked and it's limit cant be increased"}
+        />
+      )}
       <form onSubmit={handleSubmit}>
-      <ModalBody>
-        
+        <ModalBody>
           <Input
             name="wantedAmount"
             label="Wanted Amount"
@@ -70,9 +73,11 @@ const ModalForm = ({ cardId, onClose }) => {
             value={formData.wantedAmount}
             onChange={handleChange}
             required
+            disabled={card.isBlocked}
           />
           <Select
             variant="bordered"
+            disabled={card.isBlocked}
             name="requestOccupation"
             onChange={handleChange}
             items={occupations.map((occupation) => ({
@@ -82,27 +87,35 @@ const ModalForm = ({ cardId, onClose }) => {
             label="Occupation"
             placeholder="Choose an Occupation"
             className="w-xs dark"
-            
           >
             {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}
           </Select>
           <Input
             name="averageIncome"
+            disabled={card.isBlocked}
             label="Average Income"
             type="number"
             value={formData.averageIncome}
             onChange={handleChange}
             required
           />
-          <Button type="submit" isDisabled={!isFormValid()} color="primary" isLoading={isLoading}>
+          <Button
+            type="submit"
+            isDisabled={!isFormValid()}
+            color="primary"
+            isLoading={isLoading}
+          >
             Submit
           </Button>
-          {error ? <ErrorMessage message={error.response.data} />:isIncreased? <CreditLimitApproved/> : ""}
-          
-      </ModalBody>
-     
+          {error ? (
+            <ErrorMessage message={error.response.data} />
+          ) : isIncreased ? (
+            <CreditLimitApproved />
+          ) : (
+            ""
+          )}
+        </ModalBody>
       </form>
-      
     </>
   );
 };

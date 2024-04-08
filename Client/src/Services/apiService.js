@@ -2,7 +2,7 @@ import axios from "axios";
 import localforage from "localforage";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:5275/api", // Replace with your API base URL
+  baseURL: "http://localhost:5276/api", 
 });
 
 apiClient.interceptors.request.use(
@@ -16,11 +16,29 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+     
+        localStorage.removeItem("token");
+        window.location.replace("/login");
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const getCards = async () => {
   try {
     const response = await apiClient.get("/cards");
     return response.data;
   } catch (error) {
+    if (error.response && error.response.status === 401) {
+      window.location.replace("/login");
+      window.location.reload();
+    }
     console.error("Error fetching cards:", error);
     throw error;
   }
@@ -69,12 +87,24 @@ export const increaseCreditLimit = async (cardId, requestData) => {
 };
 
 export const getOccupations = async () => {
-    try {
-      const response = await apiClient.get("/Occupations");
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching Occupations:", error);
-      throw error;
+  try {
+    const response = await apiClient.get("/Occupations");
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching Occupations:", error);
+    throw error;
+  }
+};
+
+export const validateToken = async () => {
+  try {
+    const response = await apiClient.get("/User/ValidateToken");
+    return response.data.valid;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      return false;
     }
-  };
+    throw error;
+  }
+};

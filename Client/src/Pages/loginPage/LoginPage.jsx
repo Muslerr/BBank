@@ -1,23 +1,31 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../Contexts/AuthContext";
+import Header from "../../Components/Header";
+import Footer from "../../Components/Footer";
 import {
   Card,
   Input,
   Button,
   CardHeader,
   CardBody,
-  CardFooter,Image
+  CardFooter,
+  Image,
 } from "@nextui-org/react";
 import { EyeFilledIcon } from "../../Components/Icons/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../../Components/Icons/EyeSlashFilledIcon";
-import { ThemeSwitcher } from "../../Components/ThemeSwitcher";
-import ErrorMessage from "../../Components/ErrorMessage";
+import { ThemeSwitcher } from "../../Components/Icons/ThemeSwitcher";
+import ErrorMessage from "../../Components/Messages/ErrorMessage";
+import { useLocation } from "react-router-dom";
 
 const LoginPage = ({ toggleDarkMode }) => {
   const { login } = useContext(AuthContext);
   const [isVisible, setIsVisible] = React.useState(false);
+  const location = useLocation();
+  const [refreshError, setRefreshError] = useState(
+    location.state?.error || null
+  );
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -33,7 +41,6 @@ const LoginPage = ({ toggleDarkMode }) => {
 
   const handleAutoFill = async () => {
     try {
-      console.log(formData);
       const response = await axios.post("/User/Login", {
         username: "admin",
         password: "123456",
@@ -46,15 +53,14 @@ const LoginPage = ({ toggleDarkMode }) => {
         setError("Invalid credentials");
       }
     } catch (error) {
-      console.log(error);
       setError(error.message);
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      console.log(formData);
+      
       const response = await axios.post("/User/Login", formData);
       const token = response.data.token;
       if (token) {
@@ -62,40 +68,21 @@ const LoginPage = ({ toggleDarkMode }) => {
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      
       setError(error.response.data);
       setErrorKey((prevKey) => prevKey + 1);
     }
   };
 
-
   return (
     <div className="w-full max-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
-      <header className="bg-white dark:bg-gray-800 shadow-md">
-        <div className="container mx-auto px-4 py-6 flex items-center justify-between">
-          <div className="flex items-center">
-          <Image
-              src={`../../../public/bankLogo.png`}
-              alt="Logo"
-              className="w-16 h-16 mr-4"
-
-            />
-            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Credit Card Management</h1>
-          </div>
-          <ThemeSwitcher toggleDarkMode={toggleDarkMode} />
-        </div>
-        </header>
+      <Header toggleDarkMode={toggleDarkMode} />
+      {refreshError && <ErrorMessage message={refreshError} />}
       <div className="flex items-center flex-col justify-center h-screen">
-      {error && (
-              <ErrorMessage
-                num={errorKey}
-                message={error}
-              />
-            )}
+        {error && <ErrorMessage num={errorKey} message={error} />}
         <Card className="p-5 w-[80%] sm:w-1/3" variant="fill">
           <CardHeader>
             <h1 className="text-500">Login</h1>
-            
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardBody>
@@ -149,13 +136,8 @@ const LoginPage = ({ toggleDarkMode }) => {
             </CardFooter>
           </form>
         </Card>
-        
       </div>
-      <footer className="bg-white dark:bg-gray-800 shadow-md mt-8">
-        <div className="container mx-auto px-4 py-4 text-center text-gray-600 dark:text-gray-400">
-          &copy; 2023 Credit Card Management. All rights reserved.
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

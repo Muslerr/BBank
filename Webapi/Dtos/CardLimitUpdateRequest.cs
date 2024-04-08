@@ -14,7 +14,7 @@ namespace Webapi.Dtos
 
         public CreditCard CanIncreaseCardLimit(CreditCard card)
         {
-           
+           Console.WriteLine("Card Limit");
             try
             {
                 if (card.IsBlocked || AverageIncome < 12000 || IsIssuedDateMoreThanThreeMonthsAgo(card.IssuedDate))

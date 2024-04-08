@@ -13,7 +13,7 @@ const ErrorMessage = ({ message,num }) => {
   
   const handleClose = () => {
     setOpen(false);
-    onClose();
+    
   };
 
   return (

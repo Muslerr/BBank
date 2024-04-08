@@ -12,7 +12,7 @@ namespace Webapi.Dtos
         { "SelfEmployed", 0.3 },
         { "Salaried", 0.5 },
        
-        //we can add more occupation profile in here and modify the existing ones with ease.
+        //we can add more occupation profile in here and modify the existing ones with ease adding more Occupations dynamicly that will also change it in the client side.
     };
     }
 }

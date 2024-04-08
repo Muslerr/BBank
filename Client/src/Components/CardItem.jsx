@@ -22,7 +22,7 @@ const CardItem = ({ card, bankName }) => {
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
-            <ModalForm cardId={card.id} onClose={onClose} ></ModalForm>
+            <ModalForm card={card} onClose={onClose} ></ModalForm>
           )}
         </ModalContent>
       </Modal>

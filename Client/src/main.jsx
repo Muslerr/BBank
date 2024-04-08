@@ -6,15 +6,14 @@ import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
 import { NextUIProvider } from "@nextui-org/react";
 
-axios.defaults.baseURL = "http://localhost:5275/api";
+axios.defaults.baseURL = "http://localhost:5276/api";
 
 
 
 const Main = () => {
  
 
-  return (
-    <React.StrictMode>
+  return (   
       <NextUIProvider>
         <Router>
           
@@ -22,7 +21,6 @@ const Main = () => {
           
         </Router>
       </NextUIProvider>
-    </React.StrictMode>
   );
 };
 
