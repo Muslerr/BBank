@@ -17,7 +17,7 @@ namespace Webapi.Dtos
            Console.WriteLine("Card Limit");
             try
             {
-                if (card.IsBlocked || AverageIncome < 12000 || IsIssuedDateMoreThanThreeMonthsAgo(card.IssuedDate))
+                if (card.IsBlocked || AverageIncome < 12000 || IsIssuedDateMoreThanThreeMonthsAgo(card.IssuedDate)||WantedAmount>100000)
                     return null;
                 if (!OccupationsList.Occupations.TryGetValue(RequestOccupation, out var increasePercentage))
                 {

@@ -16,7 +16,7 @@ const CardItem = ({ card, bankName }) => {
       </CardBody>
       <CardFooter className="text-small justify-between">
         <b>{card.cardNumber}</b>
-        <p className="text-default-500">bank:{bankName}</p>
+        <p className="font-medium">bank:{bankName}</p>
       </CardFooter>
     </Card>
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

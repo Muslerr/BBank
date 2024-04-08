@@ -100,14 +100,14 @@ const ModalForm = ({ card, onClose }) => {
             onChange={handleChange}
             required
           />
-          <Button
+          {!card.isBlocked && <Button
             type="submit"
             isDisabled={!isFormValid()}
             color="primary"
             isLoading={isLoading}
           >
             Submit
-          </Button>
+          </Button>}
           {error ? (
             <ErrorMessage message={error.response.data} />
           ) : isIncreased ? (
