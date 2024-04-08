@@ -68,12 +68,13 @@ const ModalForm = ({ card, onClose }) => {
         <ModalBody>
           <Input
             name="wantedAmount"
-            label="Wanted Amount"
+            label="Wanted Amount (Less than 100000)"
             type="number"
             value={formData.wantedAmount}
             onChange={handleChange}
             required
             disabled={card.isBlocked}
+            max={100000}
           />
           <Select
             variant="bordered"
