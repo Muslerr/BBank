@@ -13,7 +13,10 @@ npm i
 ## Usage
 
 ```sh
-first to set up run :cd /webapi  than dotnet watch run   after that open another terminal and run : cd /Client  npm run dev
+open terminal and run :cd /webapi 
+dotnet watch run  
+open another terminal and run : cd /Client  
+npm run dev
 ```
 
 ## Author
