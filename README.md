@@ -13,9 +13,11 @@ npm i
 ## Usage
 
 ```sh
-open terminal and run :cd /webapi 
+open terminal and run :
+cd Webapi/
 dotnet watch run  
-open another terminal and run : cd /Client  
+open another terminal and run :
+cd Client/  
 npm i
 npm run dev
 ```
