@@ -14,7 +14,7 @@ namespace Webapi.Dtos
 
         public CreditCard CanIncreaseCardLimit(CreditCard card)
         {
-           Console.WriteLine("Card Limit");
+           
             try
             {
                 if (card.IsBlocked || AverageIncome < 12000 || IsIssuedDateMoreThanThreeMonthsAgo(card.IssuedDate)||WantedAmount>100000)
@@ -24,14 +24,13 @@ namespace Webapi.Dtos
                     Console.WriteLine("occupation bad");
                     return null;
                 }
-                Console.WriteLine(increasePercentage);
+                
                 if (WantedAmount <= increasePercentage * AverageIncome)
                 {
                     Console.WriteLine(increasePercentage);
                     card.CardLimit = WantedAmount;
                     return card;
                 }
-                Console.WriteLine(increasePercentage);
                 return null;
             }
             catch

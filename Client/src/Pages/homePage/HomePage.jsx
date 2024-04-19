@@ -32,34 +32,30 @@ const HomePage = ({ toggleDarkMode }) => {
     const fetchData = async () => {
       try {
         setError(null);
-        let fetchedCards = await getCards();
+        setIsLoadingCards(true);
+        setIsLoadingBanks(true);
+        setIsLoadingOccupations(true);
+    
+        const [fetchedCards, fetchedBanks, fetchedOccupations] = await Promise.all([
+          getCards(),
+          getBanks(),
+          getOccupations(),
+        ]);
+    
         setCards(fetchedCards);
         setAllCards(fetchedCards);
+        setBanks(fetchedBanks);
+        setOccupations(fetchedOccupations);
       } catch (error) {
         setError(error.message);
-        
       } finally {
         setIsLoadingCards(false);
-      }
-
-      try {
-        setError(null);
-        setBanks(await getBanks());
-      } catch (error) {
-        setError(error.message);
-      } finally {
         setIsLoadingBanks(false);
-      }
-
-      try {
-        setError(null);
-        setOccupations(await getOccupations());
-      } catch (error) {
-        setError(error.message);
-      } finally {
         setIsLoadingOccupations(false);
       }
     };
+    
+    
 
     fetchData();
   }, []);
