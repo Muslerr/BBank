@@ -45,7 +45,7 @@ namespace Webapi.Repositories
                 else
                 {
                     return _cards.Where(card =>
-                        (filter.IsBlocked == null || card.IsBlocked == filter.IsBlocked.Value) &&
+                        (filter.IsBlocked == null  || card.IsBlocked == filter.IsBlocked.Value) &&
                         (string.IsNullOrEmpty(filter.BankCode) || card.BankCode.Equals(filter.BankCode)) &&
                         (string.IsNullOrEmpty(filter.CardNumber) || card.CardNumber.Contains(filter.CardNumber))
                     ).ToList();

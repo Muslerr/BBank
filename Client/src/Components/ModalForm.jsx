@@ -70,12 +70,13 @@ const ModalForm = ({ card, onClose }) => {
         <ModalBody>
           <Input
             name="wantedAmount"
-            label="Wanted Amount"
+            label="Wanted Amount (Less than 100000)"
             type="number"
             value={formData.wantedAmount}
             onChange={handleChange}
             required
             disabled={card.isBlocked}
+            max={100000}
           />
           <Select
             variant="bordered"
@@ -101,14 +102,14 @@ const ModalForm = ({ card, onClose }) => {
             onChange={handleChange}
             required
           />
-          <Button
+          {!card.isBlocked && <Button
             type="submit"
             isDisabled={!isFormValid()}
             color="primary"
             isLoading={isLoading}
           >
             Submit
-          </Button>
+          </Button>}
           {error ? (
             <ErrorMessage message={error.response.data} />
           ) : isIncreased ? (
