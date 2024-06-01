@@ -4,8 +4,11 @@ import LoginPage from "./Pages/loginPage/LoginPage";
 import HomePage from "./Pages/homePage/HomePage";
 import { AuthProvider, AuthContext } from "./Contexts/AuthContext";
 import { DataContext, DataProvider } from "./Contexts/DataContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import Loading from "./Components/Messages/Loading";
+
+const  queryClient=new QueryClient();
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -17,7 +20,7 @@ const App = () => {
   return (
     <main className={`${darkMode ? "dark" : ""} text-foreground bg-background`}>
       <AuthProvider>
-        <DataProvider>
+        <QueryClientProvider client={queryClient}>
           <Routes>
             <Route
               path="/login"
@@ -32,7 +35,7 @@ const App = () => {
               }
             />
           </Routes>
-        </DataProvider>
+        </QueryClientProvider>
       </AuthProvider>
     </main>
   );

@@ -14,6 +14,7 @@ namespace Webapi.Controllers
         [HttpGet]
         public IActionResult GetOccupations()
         {
+            
             List<string> occupations = new List<string>(OccupationsList.Occupations.Keys);
             return Ok(occupations);
         }

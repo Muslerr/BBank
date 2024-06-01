@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lhu86+S5eAzKYGivb7nqqeb6fV04RM6HLvrqFLn1dO55HEZGNxReaGmySjy5+5tEMqx/lC2BgxzAR1VLiAevyw==",
+  "dgSpecHash": "Py/OTG85rwwS9JSYpks/veSdnvJKlxdk2+xmMpORDj2v/viXPqjMNWrz1O3NeJO+vpw2McDmVTGPsu5iAI8rdQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\musle\\BBank\\Webapi\\Webapi.csproj",
+  "projectFilePath": "C:\\Users\\musle\\BBank-1\\Webapi\\Webapi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\musle\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.3\\microsoft.aspnetcore.authentication.jwtbearer.8.0.3.nupkg.sha512",
     "C:\\Users\\musle\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",

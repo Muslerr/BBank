@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\musle\\BBank\\Webapi\\Webapi.csproj": {}
+    "C:\\Users\\musle\\BBank-1\\Webapi\\Webapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\musle\\BBank\\Webapi\\Webapi.csproj": {
+    "C:\\Users\\musle\\BBank-1\\Webapi\\Webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\musle\\BBank\\Webapi\\Webapi.csproj",
+        "projectUniqueName": "C:\\Users\\musle\\BBank-1\\Webapi\\Webapi.csproj",
         "projectName": "Webapi",
-        "projectPath": "C:\\Users\\musle\\BBank\\Webapi\\Webapi.csproj",
+        "projectPath": "C:\\Users\\musle\\BBank-1\\Webapi\\Webapi.csproj",
         "packagesPath": "C:\\Users\\musle\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\musle\\BBank\\Webapi\\obj\\",
+        "outputPath": "C:\\Users\\musle\\BBank-1\\Webapi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -94,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

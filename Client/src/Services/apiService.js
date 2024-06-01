@@ -33,6 +33,7 @@ apiClient.interceptors.response.use(
 export const getCards = async () => {
   try {
     const response = await apiClient.get("/cards");
+    
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {
@@ -65,10 +66,12 @@ export const getBanks = async () => {
 };
 
 export const getFilteredCards = async (filter) => {
+  console.log("Filtering cards");
   try {
-    console.log(filter);
+    
     const queryParams = new URLSearchParams(filter);
     const response = await apiClient.get(`/cards?${queryParams.toString()}`);
+   
     return response.data;
   } catch (error) {
     console.error("Error fetching filtered cards:", error);
@@ -89,7 +92,7 @@ export const increaseCreditLimit = async (cardId, requestData) => {
 export const getOccupations = async () => {
   try {
     const response = await apiClient.get("/Occupations");
-    console.log(response.data);
+    console.log("fetched occupations");
     return response.data;
   } catch (error) {
     console.error("Error fetching Occupations:", error);

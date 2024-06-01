@@ -28,7 +28,7 @@ namespace Webapi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCards([FromQuery] string? isBlocked, [FromQuery] string? bankCode, [FromQuery] string? cardNumber)
         {
-            
+            await Task.Delay(2000);
             try
             {               
 

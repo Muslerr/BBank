@@ -7,26 +7,32 @@ import IsblockedFilter from "./Filters/IsblockedFilter";
 import CardNumberFilter from "./Filters/CardNumberFilter";
 import BankCodeFilter from "./Filters/BankCodeFilter";
 import ErrorMessage from "./Messages/ErrorMessage";
+import { useQuery } from "@tanstack/react-query";
 
-const CardList = () => {
-  const { cards, banks, setCards, allCards } = useContext(DataContext);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {}, [cards]);
-
+const CardList = ({banks ,cards}) => {
+  
+  
   const [filter, setFilter] = useState({
     IsBlocked: null,
     BankCode: "",
     CardNumber: "",
   });
+  const {data:filteredCards,isLoading:isLoadingFilteredCards,error:errorFilteredCards}=useQuery({
+    queryFn:()=>getFilteredCards(filter),
+    queryKey:["cards",{filter}],
+    enabled: Object.values(filter).some(value => value !== null && value !== ''), 
+  })
+ 
+
+
+  
 
   const handleCardNumberFilterChange = (cardNumber) => {
     setFilter((prevFilter) => ({
       ...prevFilter,
       CardNumber: cardNumber,
     }));
-    applyFilter({ ...filter, CardNumber: cardNumber });
+    
   };
 
   const handleIsblockedFilterChange = (e) => {
@@ -35,7 +41,7 @@ const CardList = () => {
       ...prevFilter,
       IsBlocked: value,
     }));
-    applyFilter({ ...filter, IsBlocked: value });
+    
   };
 
   const handleBankCodeFilterChange = (e) => {
@@ -44,23 +50,10 @@ const CardList = () => {
       ...prevFilter,
       BankCode: value,
     }));
-    applyFilter({ ...filter, BankCode: value });
+    
   };
 
-  const applyFilter = async (updatedFilter) => {
-    try {
-      setError(null);
-      setIsLoading(true);
-      
-      setCards(await getFilteredCards(updatedFilter));
-    } catch (error) {
-      setError(error.message);
-      
-      setIsLoading(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+ 
 
   const getBankName = (bankCode) => {
     const bank = banks.find((b) => b.bankCode === bankCode);
@@ -78,10 +71,10 @@ const CardList = () => {
         />
       </div>
       <div className="gap-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
-        {error && <ErrorMessage message={error}></ErrorMessage>}
-        {!error &&
-          cards.map((card, index) => (
-            <Skeleton key={index} isLoaded={!isLoading} className="rounded-lg">
+        {errorFilteredCards && <ErrorMessage message={"error filtering cards"}></ErrorMessage>}
+        {!errorFilteredCards &&
+          (filteredCards ? filteredCards : cards).map((card, index) => ( 
+            <Skeleton key={index} isLoaded={!isLoadingFilteredCards} className="rounded-lg">
               <CardItem card={card} bankName={getBankName(card.bankCode)} />
             </Skeleton>
           ))}

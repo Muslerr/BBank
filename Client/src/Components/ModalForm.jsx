@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input, Button } from "@nextui-org/react";
 import { increaseCreditLimit } from "../Services/apiService";
 import { useContext } from "react";
-import { DataContext } from "../Contexts/DataContext";
+import { useQuery } from "@tanstack/react-query";
 import ErrorMessage from "./Messages/ErrorMessage";
 import CreditLimitApproved from "./Messages/CreditLimitApproved";
 import {
@@ -17,7 +17,9 @@ import {
 } from "@nextui-org/react";
 
 const ModalForm = ({ card, onClose }) => {
-  const { occupations } = useContext(DataContext);
+  const {data:occupations,isLoading:isLoadingOccupations,error:errorOccupations}=useQuery({
+    queryKey:["occupations"]
+  });
   const [error, setError] = useState();
   const [isLoading, setLoading] = useState();
   const [isIncreased, setIsIncreased] = useState();
