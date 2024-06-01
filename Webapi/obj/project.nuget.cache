@@ -1,10 +1,6 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "Py/OTG85rwwS9JSYpks/veSdnvJKlxdk2+xmMpORDj2v/viXPqjMNWrz1O3NeJO+vpw2McDmVTGPsu5iAI8rdQ==",
-=======
-  "dgSpecHash": "JXepqQnRso7a+jgxS1jKBRD0IgsWvHkEX93jK8w4DrjITgkFFMVgAEpeFvjVkeE47fZju75Lf2d+fy8BVviUQA==",
->>>>>>> 09d95ab79d4232376f02e08d526f5bafb1f3d21e
   "success": true,
   "projectFilePath": "C:\\Users\\musle\\BBank-1\\Webapi\\Webapi.csproj",
   "expectedPackageFiles": [
@@ -50,5 +46,12 @@
     "C:\\Users\\musle\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.1.2\\system.identitymodel.tokens.jwt.7.1.2.nupkg.sha512",
     "C:\\Users\\musle\\.nuget\\packages\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\musle\\BBank-1\\Webapi\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

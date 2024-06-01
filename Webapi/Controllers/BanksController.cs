@@ -24,6 +24,7 @@ namespace Webapi.Controllers
         public async Task<IActionResult> GetBanksAsync()
         {
             await Task.Delay(2000);
+            
             try
             {
                 var banks = await _bankRepository.GetAllBanksAsync();
